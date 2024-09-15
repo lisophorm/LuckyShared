@@ -1,5 +1,7 @@
 /casino-app-backend/node_modules/
 /casino-app-backend/package-lock.json
+/casino-app-backend/dist
 /casino-app-frontend/node_modules/
 /casino-app-frontend/build
-.idea
+/.idea
+package-lock.json
