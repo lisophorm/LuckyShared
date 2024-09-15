@@ -1,22 +1,17 @@
-import express, { Application, Request, Response } from 'express';
-import path from 'path';
-import exampleRoute from './routes/exampleRoute';
+const express = require('express');
+const app = express();
+const port = 3000;
 
-const app: Application = express();
-const PORT = process.env.PORT || 5000;
+// Import routes
+const gameRoutes = require('./routes/games');
 
-// API routes
-app.use('/api/example', exampleRoute);
+// Middleware for JSON body parsing
+app.use(express.json());
 
-// Serve static files from the React frontend app
-app.use(express.static(path.join(__dirname, '../../frontend/build')));
+// Use the game routes
+app.use('/games', gameRoutes);
 
-// The "catchall" handler: for any request that doesn't
-// match one above, send back React's index.html file.
-app.get('*', (req: Request, res: Response) => {
-    res.sendFile(path.join(__dirname, '../../casino-app-frontend/build', 'index.html'));
-});
-
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+// Start the server
+app.listen(port, () => {
+    console.log(`Server running on http://localhost:${port}`);
 });
