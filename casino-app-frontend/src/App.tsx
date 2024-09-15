@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { store } from "./app/store";
+import Lobby from "./pages/Lobby";
+import GameDetail from "./pages/GameDetail";
+import SearchResults from "./pages/SearchResults";
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Gino Tronico
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <div className="app">
+        <BrowserRouter>
+          <Routes>
+            {/* Lobby Page: Lists all games */}
+            <Route path="/" element={<Lobby />} />
+            <Route path="/games" element={<Lobby />} />
+
+            {/* Game Detail Page: Displays a specific game by ID */}
+            <Route path="/games/:id" element={<GameDetail />} />
+
+            {/* Search Results Page: Displays games based on search query */}
+            <Route path="/search" element={<SearchResults />} />
+          </Routes>
+        </BrowserRouter>
+      </div>
+    </Provider>
   );
-}
+};
 
 export default App;

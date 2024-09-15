@@ -1,7 +1,15 @@
-import { GameCategory } from "./game-category.interface";
-import { GameTypes } from "./game-types.interface";
+export interface GameCategory {
+  id: string;
+  title: string;
+  type: string;
+}
 
-export interface CasinoGame {
+export interface GameTypes {
+  realMode: number;
+  funMode: number;
+}
+
+export type CasinoGame = {
   categories: string[];
   features: any[];
   themes: any[];
@@ -29,4 +37,4 @@ export interface CasinoGame {
   feats: any[];
   thms: any[];
   active: string;
-}
+};
