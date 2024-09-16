@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { getGameById } from '../services/api'
-import { CasinoGame } from '../types/game'
+import { CasinoGame } from '@crystal-bits/casino-games/dist/casino-game.type'
 
 const GameDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>()

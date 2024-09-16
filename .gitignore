@@ -7,3 +7,5 @@
 
 package-lock.json
 .idea
+/casino-shared-npm/dist/
+/casino-shared-npm/node_modules/

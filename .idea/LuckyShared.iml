@@ -5,6 +5,9 @@
       <excludeFolder url="file://$MODULE_DIR$/.tmp" />
       <excludeFolder url="file://$MODULE_DIR$/temp" />
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/casino-app-backend/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/casino-app-frontend/build" />
+      <excludeFolder url="file://$MODULE_DIR$/casino-shared-npm/dist" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
