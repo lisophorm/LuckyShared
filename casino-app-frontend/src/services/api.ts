@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { CasinoGame } from '../types/game'
+import { CasinoGame } from '@crystal-bits/casino-games/dist/casino-game.type'
 
 const api = axios.create({
     baseURL: 'http://localhost:3000/api/games',
@@ -41,7 +41,9 @@ export const searchGames = async (query: string): Promise<CasinoGame[]> => {
 }
 
 // Get a game by ID and process the game before returning
-export const getGameById = async (id: string): Promise<CasinoGame> => {
+export const getGameById = async (
+    id: string | undefined
+): Promise<CasinoGame> => {
     try {
         const response = await api.get(`/${id}`)
         const game = response.data as CasinoGame

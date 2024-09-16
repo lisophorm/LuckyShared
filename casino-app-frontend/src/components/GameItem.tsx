@@ -1,5 +1,5 @@
 import React from 'react'
-import { CasinoGame } from '../types/game'
+import { CasinoGame } from '@crystal-bits/casino-games/dist/casino-game.type'
 
 interface GameItemProps {
     game: CasinoGame
