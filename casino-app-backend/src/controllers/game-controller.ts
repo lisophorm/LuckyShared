@@ -1,6 +1,5 @@
-import { Request, Response } from 'express'
-//import * as gamesJson from "../../data/games.json"; // Assume you put your games.json file in /data
-import { CasinoGame } from '../models/game'
+import { Request, Response } from 'express' //import * as gamesJson from "../../data/games.json"; // Assume you put your games.json file in /data
+import { CasinoGame } from '@crystal-bits/casino-games/dist/casino-game.type'
 import { paginate } from '../utils/pagination'
 
 const games: any[] = require('../../data/games.json')

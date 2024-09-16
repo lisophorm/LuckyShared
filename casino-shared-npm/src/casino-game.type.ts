@@ -1,13 +1,5 @@
-export interface GameCategory {
-    id: string
-    title: string
-    type: string
-}
-
-export interface GameTypes {
-    realMode: number
-    funMode: number
-}
+import { GameTypes } from './game-types.interface'
+import { GameCategory } from './game-category.interface'
 
 export type CasinoGame = {
     categories: string[]
