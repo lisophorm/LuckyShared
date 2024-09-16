@@ -13,7 +13,7 @@ import Paginator from './Paginator'
 
 const GameList: React.FC = () => {
     const dispatch = useDispatch()
-    const { gamesList, searchResults, loading, error, searchString } =
+    const { gamesList, searchResults, loading, error, searchString, total } =
         useSelector((state: RootState) => state.games)
 
     console.log('searchString', searchString)
@@ -73,6 +73,7 @@ const GameList: React.FC = () => {
 
     return (
         <div className="game-list">
+            total:{total}
             <input
                 type="text"
                 placeholder="Search games..."
@@ -98,7 +99,11 @@ const GameList: React.FC = () => {
             )}
             <Paginator
                 currentPage={currentPage}
-                totalPages={filteredGames.length} // Adjust based on your actual data
+                totalPages={
+                    searchString && searchString !== ''
+                        ? filteredGames.length / settings.RECORDS_PAGE
+                        : total / settings.RECORDS_PAGE
+                } // Adjust based on your actual data
                 onPageChange={handlePageChange}
             />
         </div>

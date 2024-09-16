@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { fetchGames, searchGames } from '../services/api'
 import { CasinoGame } from '@crystal-bits/casino-games/dist/casino-game.type'
-import { AppDispatch, store } from '../app/store'
 
 interface GamesState {
     gamesList: CasinoGame[]
@@ -9,6 +8,7 @@ interface GamesState {
     loading: boolean
     error: string | null
     searchString: string // Add searchString to the state
+    total: number
 }
 
 const initialState: GamesState = {
@@ -17,6 +17,7 @@ const initialState: GamesState = {
     loading: false,
     error: null,
     searchString: '', // Initial empty search string
+    total: 0,
 }
 
 export const loadGames = createAsyncThunk(
@@ -56,9 +57,10 @@ const gamesSlice = createSlice({
             .addCase(loadGames.fulfilled, (state, action) => {
                 state.loading = false
                 console.log('fullfilled', action.payload)
-                state.gamesList = action.payload.map((game: any) => {
+                state.gamesList = action.payload.items.map((game: any) => {
                     return game
                 })
+                state.total = action.payload.total
             })
             .addCase(loadGames.rejected, (state, action) => {
                 state.loading = false
@@ -70,7 +72,8 @@ const gamesSlice = createSlice({
             .addCase(searchGameByName.fulfilled, (state, action) => {
                 state.loading = false
                 console.log('action:', action)
-                state.searchResults = action.payload
+                state.searchResults = action.payload.items
+                state.total = action.payload.total
             })
             .addCase(searchGameByName.rejected, (state, action) => {
                 state.loading = false

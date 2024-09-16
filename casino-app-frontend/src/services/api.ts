@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { CasinoGame } from '@crystal-bits/casino-games/dist/casino-game.type'
+import { GamesResponse } from '../typescript/GamesResponse.type'
 
 console.log('window:', settings)
 
@@ -11,14 +12,17 @@ const api = axios.create({
 export const fetchGames = async (
     page: number = 1,
     limit: number = 10
-): Promise<CasinoGame[]> => {
+): Promise<GamesResponse> => {
     try {
         const response = await api.get(`/`, { params: { page, limit } })
         console.log('fetch response', response)
-        const games = response.data as CasinoGame[]
+        const games = response.data as GamesResponse
 
         // Process each game one by one (e.g., logging, modifying fields)
-        const processedGames = games.map((game) => processGame(game))
+        const processedGames = {
+            items: games.items.map((game) => processGame(game)),
+            total: games.total,
+        }
 
         return processedGames
     } catch (error) {
@@ -27,16 +31,18 @@ export const fetchGames = async (
     }
 }
 
-// Search games by query and process each game before returning
-export const searchGames = async (q: string): Promise<CasinoGame[]> => {
+// Search games by query and process each game before returning5
+export const searchGames = async (q: string): Promise<GamesResponse> => {
     try {
         const response = await api.get(`/search`, { params: { q } })
         console.log('search response', response)
-        const games = response.data as CasinoGame[]
+        const games = response.data as GamesResponse
 
         // Process each game in the search results
-        const processedGames = games.map((game) => processGame(game))
-
+        const processedGames = {
+            items: games.items.map((game) => processGame(game)),
+            total: games.total,
+        }
         return processedGames
     } catch (error) {
         console.error('Error searching for games:', error)

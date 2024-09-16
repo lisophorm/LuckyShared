@@ -41,5 +41,5 @@ export const searchGames = (req: Request, res: Response) => {
     if (results.length === 0) {
         return res.status(404).json({ message: 'No game found' })
     }
-    res.json(results)
+    res.json({ total: games.length, items: results })
 }
