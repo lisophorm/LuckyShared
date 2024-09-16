@@ -6,6 +6,14 @@ import reportWebVitals from './reportWebVitals'
 
 console.log('processo', process.env)
 
+// declare global {
+//     interface Window {
+//         env: {
+//             BASE_URL: string
+//         }
+//     }
+// }
+
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
     <React.StrictMode>

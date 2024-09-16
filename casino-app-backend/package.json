@@ -5,8 +5,10 @@
   "main": "dist/server.js",
   "scripts": {
     "dev": "ts-node-dev src/server.ts",
-    "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node build/server.js",
+    "clean": "rimraf build/",
+    "copy-files":"copyfiles -u 1 data/games.json build/data",
+    "build": "npm run clean && npm run copy-files && tsc"
   },
   "keywords": [],
   "author": "",
@@ -22,7 +24,9 @@
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/node": "^22.5.5",
+    "copyfiles": "^2.4.1",
     "prettier": "^3.3.3",
+    "rimraf": "^6.0.1",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.6.2"
   },

@@ -1,8 +1,10 @@
 import axios from 'axios'
 import { CasinoGame } from '@crystal-bits/casino-games/dist/casino-game.type'
 
+console.log('window:', window)
+
 const api = axios.create({
-    baseURL: 'http://localhost:3000/api/games',
+    baseURL: `/api/games`,
 })
 
 // Fetches games with pagination and processes each game before returning
@@ -12,7 +14,8 @@ export const fetchGames = async (
 ): Promise<CasinoGame[]> => {
     try {
         const response = await api.get(`/`, { params: { page, limit } })
-        const games = response.data.games as CasinoGame[]
+        console.log('fetch response', response)
+        const games = response.data as CasinoGame[]
 
         // Process each game one by one (e.g., logging, modifying fields)
         const processedGames = games.map((game) => processGame(game))
@@ -25,10 +28,11 @@ export const fetchGames = async (
 }
 
 // Search games by query and process each game before returning
-export const searchGames = async (query: string): Promise<CasinoGame[]> => {
+export const searchGames = async (q: string): Promise<CasinoGame[]> => {
     try {
-        const response = await api.get(`/search`, { params: { query } })
-        const games = response.data.results as CasinoGame[]
+        const response = await api.get(`/search`, { params: { q } })
+        console.log('search response', response)
+        const games = response.data as CasinoGame[]
 
         // Process each game in the search results
         const processedGames = games.map((game) => processGame(game))
@@ -45,7 +49,7 @@ export const getGameById = async (
     id: string | undefined
 ): Promise<CasinoGame> => {
     try {
-        const response = await api.get(`/${id}`)
+        const response = await api.get(`/game/${id}`)
         const game = response.data as CasinoGame
 
         // Process the single game

@@ -1,22 +1,36 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { loadGames, searchGameByName } from '../features/gamesSlice'
+import {
+    loadGames,
+    searchGameByName,
+    setSearchString,
+} from '../features/gamesSlice'
 import { RootState } from '../app/store'
+import GameItem from './GameItem'
+import { getUniqueCategories } from '../utils/getUniqueCategories'
+import CategoryDropdown from './CategoryDropdown'
 
 const GameList: React.FC = () => {
     const dispatch = useDispatch()
-    const { gamesList, searchResults, loading, error } = useSelector(
-        (state: RootState) => state.games
-    )
+    const { gamesList, searchResults, loading, error, searchString } =
+        useSelector((state: RootState) => state.games)
 
     useEffect(() => {
         dispatch(loadGames({ page: 1, limit: 20 }) as any)
     }, [dispatch])
 
+    console.log('searchString', searchString)
+
+    const [selectedCategory, setSelectedCategory] = useState<string | null>(
+        null
+    )
+
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
         const query = event.target.value
+        dispatch(setSearchString(query || ''))
         if (query) {
             dispatch(searchGameByName(query) as any)
+            console.log('query:', query)
         } else {
             dispatch(loadGames({ page: 1, limit: 20 }) as any)
         }
@@ -24,7 +38,22 @@ const GameList: React.FC = () => {
 
     const gamesToShow = searchResults.length ? searchResults : gamesList
 
-    console.log('gamesList:', gamesList)
+    // Extract unique categories from the games to display
+    const uniqueCategories = getUniqueCategories(gamesToShow)
+
+    // Handle category change
+    const handleCategoryChange = (categoryId: string) => {
+        setSelectedCategory(categoryId)
+    }
+
+    // Filter games based on the selected category
+    const filteredGames = selectedCategory
+        ? gamesToShow.filter((game) =>
+              game.cats.some((cat) => cat.id === selectedCategory)
+          )
+        : gamesToShow
+
+    console.log('gamesList:', gamesToShow)
 
     return (
         <div className="game-list">
@@ -32,6 +61,13 @@ const GameList: React.FC = () => {
                 type="text"
                 placeholder="Search games..."
                 onChange={handleSearch}
+                value={searchString}
+            />
+            {/* Category Dropdown */}
+            <CategoryDropdown
+                categories={uniqueCategories}
+                selectedCategory={selectedCategory}
+                onCategoryChange={handleCategoryChange}
             />
             {loading ? (
                 <p>Loading...</p>
@@ -39,9 +75,9 @@ const GameList: React.FC = () => {
                 <p>Error: {error}</p>
             ) : (
                 <div className="games-grid">
-                    {/*{gamesToShow.map((game) => (*/}
-                    {/*  <GameItem key={game.id} game={game} />*/}
-                    {/*))}*/}
+                    {filteredGames.map((game) => (
+                        <GameItem key={game.id} game={game} />
+                    ))}
                 </div>
             )}
         </div>

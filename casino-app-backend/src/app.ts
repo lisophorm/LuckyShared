@@ -2,8 +2,8 @@ import express, { Application, Request, Response } from 'express'
 import path from 'path'
 import bodyParser from 'body-parser'
 import gameRoutes from './routes/game-routes'
-import fs from 'fs'
 import { config } from './config/config'
+import { renderHTML } from './controllers/render-html'
 
 const app: Application = express()
 
@@ -20,40 +20,16 @@ console.log('cacca2')
 
 // Dynamically inject all environment variables into index.html
 app.get('/', (req: Request, res: Response) => {
-    const indexFilePath = path.join(
-        __dirname,
-        '../../casino-app-frontend/build/index.html'
-    )
-    console.log('here')
-    // Read the HTML file
-
-    fs.readFile(indexFilePath, 'utf8', (err, data) => {
-        if (err) {
-            console.error('Error reading index.html', err)
-            return res.status(500).send('An error occurred')
-        }
-
-        // Dynamically generate the envVars script from process.env
-        const envVars = Object.keys(config).reduce((script, key) => {
-            return `${script}window.env.${key} = "${config[key]}";\n`
-        }, '<script>window.env = {};\n')
-
-        console.log('env vars')
-        console.log(envVars)
-        console.log('data')
-        console.log(data)
-
-        // Close the script tag
-        const finalEnvVarsScript = `${envVars}</script>`
-
-        // Inject the script into the HTML, just before the closing head tag
-        const updatedHtml = data.replace(
-            '<head>',
-            `<head>${finalEnvVarsScript}`
-        )
-
-        res.send(updatedHtml)
-    })
+    const updatedHtml = renderHTML()
+    res.send(updatedHtml)
+})
+app.get('/game/*', (req: Request, res: Response) => {
+    const updatedHtml = renderHTML()
+    res.send(updatedHtml)
+})
+app.get('/', (req: Request, res: Response) => {
+    const updatedHtml = renderHTML()
+    res.send(updatedHtml)
 })
 
 app.use(express.static(staticPath))

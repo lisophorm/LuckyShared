@@ -23,9 +23,23 @@ export const getGameById = (req: Request, res: Response) => {
 }
 
 export const searchGames = (req: Request, res: Response) => {
-    const query = req.query.q as string
-    const results = games.filter((g: CasinoGame) =>
-        g.name.toLowerCase().includes(query.toLowerCase())
-    )
+    console.log('search')
+    const query = (req.query.q as string) || ''
+    console.log('query:', query)
+
+    const results =
+        query !== ''
+            ? games.filter(
+                  (game: CasinoGame) =>
+                      game.name.toLowerCase().includes(query.toLowerCase()) ||
+                      (game.provider &&
+                          game.provider
+                              .toLowerCase()
+                              .includes(query.toLowerCase()))
+              )
+            : []
+    if (results.length === 0) {
+        return res.status(404).json({ message: 'No game found' })
+    }
     res.json(results)
 }

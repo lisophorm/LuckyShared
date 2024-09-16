@@ -7,13 +7,13 @@ import {
 
 const router = express.Router()
 
-// Get all games with pagination
-router.get('/', getAllGames)
-
 // Get a single game by ID
-router.get('/:id', getGameById)
+router.get('/game/:id', getGameById)
 
 // Search for games
 router.get('/search', searchGames)
+
+// Get all games with pagination
+router.get('/', getAllGames)
 
 export default router
