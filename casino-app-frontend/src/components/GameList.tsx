@@ -9,21 +9,28 @@ import { RootState } from '../app/store'
 import GameItem from './GameItem'
 import { getUniqueCategories } from '../utils/getUniqueCategories'
 import CategoryDropdown from './CategoryDropdown'
+import Paginator from './Paginator'
 
 const GameList: React.FC = () => {
     const dispatch = useDispatch()
     const { gamesList, searchResults, loading, error, searchString } =
         useSelector((state: RootState) => state.games)
 
-    useEffect(() => {
-        dispatch(loadGames({ page: 1, limit: 20 }) as any)
-    }, [dispatch])
-
     console.log('searchString', searchString)
 
     const [selectedCategory, setSelectedCategory] = useState<string | null>(
         null
     )
+    const [currentPage, setCurrentPage] = useState<number>(1)
+
+    useEffect(() => {
+        dispatch(
+            loadGames({
+                page: currentPage,
+                limit: settings.RECORDS_PAGE,
+            }) as any
+        )
+    }, [dispatch, currentPage])
 
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
         const query = event.target.value
@@ -32,7 +39,12 @@ const GameList: React.FC = () => {
             dispatch(searchGameByName(query) as any)
             console.log('query:', query)
         } else {
-            dispatch(loadGames({ page: 1, limit: 20 }) as any)
+            dispatch(
+                loadGames({
+                    page: currentPage,
+                    limit: settings.RECORDS_PAGE,
+                }) as any
+            )
         }
     }
 
@@ -44,6 +56,10 @@ const GameList: React.FC = () => {
     // Handle category change
     const handleCategoryChange = (categoryId: string) => {
         setSelectedCategory(categoryId)
+    }
+
+    const handlePageChange = (page: number) => {
+        setCurrentPage(page)
     }
 
     // Filter games based on the selected category
@@ -80,6 +96,11 @@ const GameList: React.FC = () => {
                     ))}
                 </div>
             )}
+            <Paginator
+                currentPage={currentPage}
+                totalPages={filteredGames.length} // Adjust based on your actual data
+                onPageChange={handlePageChange}
+            />
         </div>
     )
 }

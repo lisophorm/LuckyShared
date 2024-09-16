@@ -1,10 +1,10 @@
 import axios from 'axios'
 import { CasinoGame } from '@crystal-bits/casino-games/dist/casino-game.type'
 
-console.log('window:', window)
+console.log('window:', settings)
 
 const api = axios.create({
-    baseURL: `/api/games`,
+    baseURL: `${settings.BASE_URL}api/games`,
 })
 
 // Fetches games with pagination and processes each game before returning

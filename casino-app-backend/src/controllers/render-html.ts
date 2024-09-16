@@ -18,7 +18,7 @@ export const renderHTML = () => {
 
     // Dynamically generate the envVars script from process.env
     const envVars = Object.keys(config).reduce((script, key) => {
-        return `${script}process.env.${key} = "${config[key]}";\n`
+        return `${script}settings.${key} = "${config[key]}";\n`
     }, '')
 
     console.log('env vars')
@@ -27,7 +27,7 @@ export const renderHTML = () => {
     console.log(config)
 
     // Close the script tag
-    const finalEnvVarsScript = `<script>${envVars}</script>`
+    const finalEnvVarsScript = `<script>settings={}\n${envVars}</script>`
 
     // Inject the script into the HTML, just before the closing head tag
     const updatedHtml = data.replace('<head>', `<head>${finalEnvVarsScript}`)
