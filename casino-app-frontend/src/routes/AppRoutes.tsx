@@ -10,8 +10,7 @@ const AppRoutes: React.FC = () => {
                 {/* Lobby Page: Lists all games */}
                 <Route path="/" element={<Lobby />} />
                 <Route path="/games" element={<Lobby />} />
-
-                {/* Game Detail Page: Displays a specific game by ID */}
+                <Route path="/games/page/:page" element={<Lobby />} />
                 <Route path="/game/:id" element={<GameDetail />} />
 
                 {/* Search Results Page: Displays games based on search query */}

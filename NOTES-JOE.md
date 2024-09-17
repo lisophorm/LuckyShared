@@ -10,3 +10,6 @@ DRY I have created a separated NPM for code to use across frontend and backend a
 
 GLOBALS: I have created a single .env in the back-end. I could have expanded it to have development and production
 
+SEO: I have used actual href links
+
+FILTER: I created a sample filter for categories

@@ -8,7 +8,7 @@ interface GameItemProps {
 
 const GameItem: React.FC<GameItemProps> = ({ game }) => {
     return (
-        <Link to={`game/${game.id}`}>
+        <Link to={`/game/${game.id}`}>
             <div className="game-item">
                 <img src={game.icon_2} alt={game.name} />
                 <h3>{game.name}</h3>

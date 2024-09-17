@@ -10,6 +10,7 @@ import GameItem from './GameItem'
 import { getUniqueCategories } from '../utils/getUniqueCategories'
 import CategoryDropdown from './CategoryDropdown'
 import Paginator from './Paginator'
+import { useParams } from 'react-router-dom'
 
 const GameList: React.FC = () => {
     const dispatch = useDispatch()
@@ -21,7 +22,8 @@ const GameList: React.FC = () => {
     const [selectedCategory, setSelectedCategory] = useState<string | null>(
         null
     )
-    const [currentPage, setCurrentPage] = useState<number>(1)
+    const { page } = useParams<{ page: string }>() // Capture the "page" parameter from the URL
+    const currentPage = page ? parseInt(page, 10) : 1 // If no page param, default to page 1
 
     useEffect(() => {
         dispatch(
@@ -56,10 +58,6 @@ const GameList: React.FC = () => {
     // Handle category change
     const handleCategoryChange = (categoryId: string) => {
         setSelectedCategory(categoryId)
-    }
-
-    const handlePageChange = (page: number) => {
-        setCurrentPage(page)
     }
 
     // Filter games based on the selected category
@@ -99,12 +97,13 @@ const GameList: React.FC = () => {
             )}
             <Paginator
                 currentPage={currentPage}
+                basePath="/games"
                 totalPages={
                     searchString && searchString !== ''
                         ? filteredGames.length / settings.RECORDS_PAGE
                         : total / settings.RECORDS_PAGE
                 } // Adjust based on your actual data
-                onPageChange={handlePageChange}
+                // onPageChange={handlePageChange}
             />
         </div>
     )

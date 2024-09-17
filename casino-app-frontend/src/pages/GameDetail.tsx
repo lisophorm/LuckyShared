@@ -38,11 +38,34 @@ const GameDetail: React.FC = () => {
             <button className="button button-secondary" onClick={goBack}>
                 Back
             </button>
-            <h1>{game?.name}</h1>
-            <img src={game?.icon_2} alt={game?.name} />
-            <p>Provider: {game?.provider}</p>
-            <p>Status: {game?.status}</p>
-            {/* Add more game details as needed */}
+            <h1 className="game-detail__title">{game?.name}</h1>
+            <img
+                src={game?.icon_2}
+                alt={game?.name}
+                className="game-detail__image"
+            />
+
+            <div className="game-detail__info">
+                <p className="game-detail__provider">
+                    <strong>Provider:</strong> {game?.provider}
+                </p>
+                <p className="game-detail__ratio">
+                    <strong>Ratio:</strong> {game?.ratio}
+                </p>
+                <p className="game-detail__status">
+                    <strong>Status:</strong> {game?.status}
+                </p>
+            </div>
+
+            <div className="game-detail__categories">
+                <h2>Categories</h2>
+                <p>{game?.cats.map((cat) => cat.title).join(', ')}</p>
+            </div>
+
+            <div className="game-detail__themes">
+                <h2>Themes</h2>
+                <p>{game?.thms.map((theme) => theme.title).join(', ')}</p>
+            </div>
         </div>
     )
 }

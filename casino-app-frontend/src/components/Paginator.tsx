@@ -1,17 +1,18 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 interface PaginatorProps {
     currentPage: number
     totalPages: number
-    onPageChange: (page: number) => void
+    basePath: string // Base path for navigation
 }
 
 const Paginator: React.FC<PaginatorProps> = ({
     currentPage,
     totalPages,
-    onPageChange,
+    basePath,
 }) => {
-    // Create an array of page numbers for rendering pagination buttons
+    // Create an array of page numbers for rendering pagination links
     const pageNumbers = Array.from(
         { length: totalPages },
         (_, index) => index + 1
@@ -19,32 +20,36 @@ const Paginator: React.FC<PaginatorProps> = ({
 
     return (
         <div className="paginator">
-            {/* Previous Button */}
-            <button
-                onClick={() => onPageChange(currentPage - 1)}
-                disabled={currentPage === 1}
-            >
-                Previous
-            </button>
+            {/* Previous Page Link */}
+            {currentPage > 1 && (
+                <Link
+                    to={`${basePath}/page/${currentPage - 1}`}
+                    className="page-link"
+                >
+                    Previous
+                </Link>
+            )}
 
-            {/* Page Numbers */}
+            {/* Page Number Links */}
             {pageNumbers.map((page) => (
-                <button
+                <Link
                     key={page}
-                    onClick={() => onPageChange(page)}
-                    disabled={page === currentPage}
+                    to={`${basePath}/page/${page}`}
+                    className={`page-link ${page === currentPage ? 'active' : ''}`}
                 >
                     {page}
-                </button>
+                </Link>
             ))}
 
-            {/* Next Button */}
-            <button
-                onClick={() => onPageChange(currentPage + 1)}
-                disabled={currentPage === totalPages}
-            >
-                Next
-            </button>
+            {/* Next Page Link */}
+            {currentPage < totalPages && (
+                <Link
+                    to={`${basePath}/page/${currentPage + 1}`}
+                    className="page-link"
+                >
+                    Next
+                </Link>
+            )}
         </div>
     )
 }

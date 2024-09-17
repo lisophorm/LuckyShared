@@ -1,9 +1,9 @@
-import express, { Application, Request, Response } from 'express'
+import express, { Application } from 'express'
 import path from 'path'
 import bodyParser from 'body-parser'
 import gameRoutes from './routes/game-routes'
-import { config } from './config/config'
-import { renderHTML } from './controllers/render-html'
+
+import staticRoutes from './routes/static-routes'
 
 const app: Application = express()
 
@@ -11,22 +11,9 @@ const app: Application = express()
 app.use(bodyParser.json())
 
 // Serve static files from the React frontend app
-const buildPath = path.join(__dirname, '../../casino-app-frontend/build')
 const staticPath = path.join(__dirname, '../../casino-app-frontend/build')
 
-// Dynamically inject all environment variables into index.html
-app.get('/', (req: Request, res: Response) => {
-    const updatedHtml = renderHTML()
-    res.send(updatedHtml)
-})
-app.get('/game/*', (req: Request, res: Response) => {
-    const updatedHtml = renderHTML()
-    res.send(updatedHtml)
-})
-app.get('/', (req: Request, res: Response) => {
-    const updatedHtml = renderHTML()
-    res.send(updatedHtml)
-})
+app.use('/', staticRoutes)
 
 app.use(express.static(staticPath))
 
