@@ -1,8 +1,9 @@
+**SECURITY CONSIDERATIONS: I would NEVER push actual config files on Git. In a real world project I would have pit .env.example and stuff like that**
+
 
 **OVERALL**: "I focused on the code structure, modularity, and maintainability of the project. I applied only basic styling, but I made a well-structured styles with variables etc.
 
 My goal was to demonstrate sound development practices, and concentrating too much on styling would have taken time away from showcasing those essential aspects.
-
 
 **FAST DEV** Environment: I have created a customised CRA, so you can have fast incremental build AND the actual node server
 
