@@ -4,7 +4,7 @@ import GameList from '../components/GameList'
 const Lobby: React.FC = () => {
     return (
         <div className="lobby">
-            <h1>Casino Lobby</h1>
+            <h1 className="lobby-title">Casino Lobby</h1>
             {/* Display the game list */}
             <GameList />
         </div>

@@ -5,6 +5,7 @@
   "dependencies": {
     "@babel/core": "^7.16.0",
     "@crystal-bits/casino-games": "^1.0.0",
+    "@fortawesome/fontawesome-free": "^6.6.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
     "@reduxjs/toolkit": "^2.2.7",
     "@svgr/webpack": "^5.5.0",
@@ -94,6 +95,7 @@
     "@types/react-router-dom": "^5.3.3",
     "@types/redux-thunk": "^2.1.0",
     "prettier": "^3.3.3",
+    "sass": "^1.78.0",
     "typescript": "^5.6.2",
     "webpack": "^5.94.0"
   },

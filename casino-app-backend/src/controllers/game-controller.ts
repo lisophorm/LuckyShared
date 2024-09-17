@@ -3,8 +3,6 @@ import { CasinoGame } from '@crystal-bits/casino-games/dist/casino-game.type'
 import { paginate } from '../utils/pagination'
 
 const games: any[] = require('../../data/games.json')
-console.log('gino:')
-console.log('games length', games.length)
 
 export const getAllGames = (req: Request, res: Response) => {
     const page = parseInt(req.query.page as string) || 1
@@ -23,9 +21,7 @@ export const getGameById = (req: Request, res: Response) => {
 }
 
 export const searchGames = (req: Request, res: Response) => {
-    console.log('search')
     const query = (req.query.q as string) || ''
-    console.log('query:', query)
 
     const results =
         query !== ''

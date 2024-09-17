@@ -14,10 +14,6 @@ app.use(bodyParser.json())
 const buildPath = path.join(__dirname, '../../casino-app-frontend/build')
 const staticPath = path.join(__dirname, '../../casino-app-frontend/build')
 
-console.log('config here:', config)
-
-console.log('cacca2')
-
 // Dynamically inject all environment variables into index.html
 app.get('/', (req: Request, res: Response) => {
     const updatedHtml = renderHTML()

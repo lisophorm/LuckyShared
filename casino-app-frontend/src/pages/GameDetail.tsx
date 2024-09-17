@@ -2,12 +2,19 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { getGameById } from '../services/api'
 import { CasinoGame } from '@crystal-bits/casino-games/dist/casino-game.type'
+import { useNavigate } from 'react-router'
 
 const GameDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>()
     const [game, setGame] = useState<CasinoGame | null>(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
+
+    const navigate = useNavigate() // Hook to navigate back
+
+    const goBack = () => {
+        navigate(-1) // Navigate back
+    }
 
     useEffect(() => {
         const fetchGame = async () => {
@@ -28,6 +35,9 @@ const GameDetail: React.FC = () => {
 
     return (
         <div className="game-detail">
+            <button className="button button-secondary" onClick={goBack}>
+                Back
+            </button>
             <h1>{game?.name}</h1>
             <img src={game?.icon_2} alt={game?.name} />
             <p>Provider: {game?.provider}</p>

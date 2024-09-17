@@ -11,7 +11,7 @@ export const renderHTML = () => {
         __dirname,
         '../../../casino-app-frontend/build/index.html'
     )
-    console.log('here')
+
     // Read the HTML file
 
     const data = fs.readFileSync(indexFilePath, { encoding: 'utf8', flag: 'r' })
