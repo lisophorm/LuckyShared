@@ -8,13 +8,12 @@ interface GameItemProps {
 
 const GameItem: React.FC<GameItemProps> = ({ game }) => {
     return (
-        <Link to={`/game/${game.id}`}>
+        <Link to={`/game/${game.id}`} className="game-item-link">
             <div className="game-item">
-                <img src={game.icon_2} alt={game.name} />
-                <h3>{game.name}</h3>
-                <p>{game.provider}</p>
-                <div className="game-icons">
-                    {/* Add custom icons like a play button or favorite button */}
+                <img src={game.icon_2} alt={game.name} className="image" />
+                <h3 className="title">{game.name}</h3>
+                <p className="provider">{game.provider}</p>
+                <div className="icons">
                     <i className="fas fa-play-circle"></i>
                     <i className="far fa-heart"></i>
                 </div>

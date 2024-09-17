@@ -11,13 +11,14 @@ import { getUniqueCategories } from '../utils/getUniqueCategories'
 import CategoryDropdown from './CategoryDropdown'
 import Paginator from './Paginator'
 import { useParams } from 'react-router-dom'
+import { CasinoGame } from '@crystal-bits/casino-games/dist/casino-game.type'
 
 const GameList: React.FC = () => {
     const dispatch = useDispatch()
     const { gamesList, searchResults, loading, error, searchString, total } =
         useSelector((state: RootState) => state.games)
 
-    console.log('searchString', searchString)
+    const [searchTerm, setSearchTerm] = useState('')
 
     const [selectedCategory, setSelectedCategory] = useState<string | null>(
         null
@@ -34,8 +35,18 @@ const GameList: React.FC = () => {
         )
     }, [dispatch, currentPage])
 
+    const handleClearSearch = () => {
+        setSearchTerm('')
+        dispatch(setSearchString(''))
+        // please forgive me for this heresy. But you know there are time
+        setTimeout(() => {
+            window.location.reload()
+        }, 50)
+    }
+
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
         const query = event.target.value
+        setSearchTerm(query)
         dispatch(setSearchString(query || ''))
         if (query) {
             dispatch(searchGameByName(query) as any)
@@ -52,6 +63,14 @@ const GameList: React.FC = () => {
 
     const gamesToShow = searchResults.length ? searchResults : gamesList
 
+    // Updated logic to grey out non-matching games
+    const isGreyedOut = (game: CasinoGame) => {
+        if (!selectedCategory || selectedCategory === 'all') {
+            return false // If no category is selected or 'all' is selected, nothing is greyed out
+        }
+        return !game.cats.some((cat) => cat.id === selectedCategory)
+    }
+
     // Extract unique categories from the games to display
     const uniqueCategories = getUniqueCategories(gamesToShow)
 
@@ -67,18 +86,25 @@ const GameList: React.FC = () => {
           )
         : gamesToShow
 
-    console.log('gamesList:', gamesToShow)
+    console.log('gamesList:', filteredGames)
 
     return (
         <div className="game-list">
-            total:{total}
-            <input
-                type="text"
-                placeholder="Search games..."
-                onChange={handleSearch}
-                value={searchString}
-            />
-            {/* Category Dropdown */}
+            <div className="search-container">
+                <input
+                    type="text"
+                    placeholder="Search games..."
+                    value={searchTerm}
+                    onChange={handleSearch}
+                    className="search-input"
+                />
+                {searchTerm && (
+                    <i
+                        className="fas fa-times clear-icon"
+                        onClick={handleClearSearch}
+                    ></i>
+                )}
+            </div>
             <CategoryDropdown
                 categories={uniqueCategories}
                 selectedCategory={selectedCategory}
@@ -90,8 +116,13 @@ const GameList: React.FC = () => {
                 <p>Error: {error}</p>
             ) : (
                 <div className="games-grid">
-                    {filteredGames.map((game) => (
-                        <GameItem key={game.id} game={game} />
+                    {gamesToShow.map((game) => (
+                        <div
+                            key={game.id}
+                            className={`game-item-wrapper ${isGreyedOut(game) ? 'greyed-out' : ''}`}
+                        >
+                            <GameItem game={game} />
+                        </div>
                     ))}
                 </div>
             )}
