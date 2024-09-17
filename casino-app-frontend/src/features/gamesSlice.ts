@@ -24,7 +24,6 @@ export const loadGames = createAsyncThunk(
     'games/loadGames',
     async ({ page, limit }: { page: number; limit: number }) => {
         const response = await fetchGames(page, limit)
-        console.log('response:', response)
         return response
     }
 )
@@ -33,9 +32,6 @@ export const searchGameByName = createAsyncThunk(
     'games/searchGameByName',
     async (query: string) => {
         const response = await searchGames(query)
-        console.log('response searchgames:', response)
-
-        //  store.dispatch(setSearchString(query))
         return response
     }
 )
@@ -56,7 +52,6 @@ const gamesSlice = createSlice({
             })
             .addCase(loadGames.fulfilled, (state, action) => {
                 state.loading = false
-                console.log('fullfilled', action.payload)
                 state.gamesList = action.payload.items.map((game: any) => {
                     return game
                 })
@@ -71,7 +66,6 @@ const gamesSlice = createSlice({
             })
             .addCase(searchGameByName.fulfilled, (state, action) => {
                 state.loading = false
-                console.log('action:', action)
                 state.searchResults = action.payload.items
                 state.total = action.payload.total
             })

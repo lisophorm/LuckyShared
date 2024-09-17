@@ -7,7 +7,7 @@ import {
 } from '../features/gamesSlice'
 import { RootState } from '../app/store'
 import GameItem from './GameItem'
-import { getUniqueCategories } from '../utils/getUniqueCategories'
+import { getUniqueCategories } from '../utils/get-unique-categories'
 import CategoryDropdown from './CategoryDropdown'
 import Paginator from './Paginator'
 import { useParams } from 'react-router-dom'
@@ -50,7 +50,6 @@ const GameList: React.FC = () => {
         dispatch(setSearchString(query || ''))
         if (query) {
             dispatch(searchGameByName(query) as any)
-            console.log('query:', query)
         } else {
             dispatch(
                 loadGames({
@@ -85,8 +84,6 @@ const GameList: React.FC = () => {
               game.cats.some((cat) => cat.id === selectedCategory)
           )
         : gamesToShow
-
-    console.log('gamesList:', filteredGames)
 
     return (
         <div className="game-list">

@@ -20,6 +20,7 @@ const Paginator: React.FC<PaginatorProps> = ({
 
     return (
         <div className="paginator">
+            current page: {currentPage} - total pages: {totalPages}
             {/* Previous Page Link */}
             {currentPage > 1 && (
                 <Link
@@ -29,7 +30,6 @@ const Paginator: React.FC<PaginatorProps> = ({
                     Previous
                 </Link>
             )}
-
             {/* Page Number Links */}
             {pageNumbers.map((page) => (
                 <Link
@@ -40,7 +40,6 @@ const Paginator: React.FC<PaginatorProps> = ({
                     {page}
                 </Link>
             ))}
-
             {/* Next Page Link */}
             {currentPage < totalPages && (
                 <Link

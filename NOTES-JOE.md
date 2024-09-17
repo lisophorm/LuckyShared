@@ -1,15 +1,19 @@
-prettier -> I love prettier I put the settings in the package.json
 
-OVERALL: "I focused on the code structure, modularity, and maintainability of the project because I believe those are the foundations of a scalable and efficient application. While I applied basic styling, I prioritized building a well-structured codebase that is easy to extend and maintain. In a real-world scenario, styling could be further refined without compromising the integrity of the application. My goal was to demonstrate sound development practices, and concentrating too much on styling would have taken time away from showcasing those essential aspects."
+**OVERALL**: "I focused on the code structure, modularity, and maintainability of the project. I applied only basic styling, but I made a well-structured styles with variables etc.
 
-
-**FAST DEV** Environment: I have created a customised CRA, so you can have fast incremental build and the actual node server
+My goal was to demonstrate sound development practices, and concentrating too much on styling would have taken time away from showcasing those essential aspects.
 
 
-DRY I have created a separated NPM for code to use across frontend and backend and for anything worth sharing across projects
+**FAST DEV** Environment: I have created a customised CRA, so you can have fast incremental build AND the actual node server
 
-GLOBALS: I have created a single .env in the back-end. I could have expanded it to have development and production
+**prettier** I love prettier I put the settings in the package.json
 
-SEO: I have used actual href links
+**DRY** I have created a separated NPM for code to use across frontend and backend and for anything worth sharing across projects
 
-FILTER: I created a sample filter for categories
+**GLOBALS**: I have created a single .env in the back-end. I could have expanded it to have development and production
+
+**SEO**: I have used actual href links
+
+**FILTER**: I created a sample filter for categories with some "cool" styling
+
+**SCRIPTS**: I prefer to keep open 2 CMD and have react and node run separately. I could have use concurrently and a single script but I cannot see properly the console logs

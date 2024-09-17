@@ -2,8 +2,6 @@ import axios from 'axios'
 import { CasinoGame } from '@crystal-bits/casino-games/dist/casino-game.type'
 import { GamesResponse } from '../typescript/GamesResponse.type'
 
-console.log('window:', settings)
-
 const api = axios.create({
     baseURL: `${settings.BASE_URL}api/games`,
 })
@@ -15,7 +13,6 @@ export const fetchGames = async (
 ): Promise<GamesResponse> => {
     try {
         const response = await api.get(`/`, { params: { page, limit } })
-        console.log('fetch response', response)
         const games = response.data as GamesResponse
 
         // Process each game one by one (e.g., logging, modifying fields)
@@ -35,7 +32,6 @@ export const fetchGames = async (
 export const searchGames = async (q: string): Promise<GamesResponse> => {
     try {
         const response = await api.get(`/search`, { params: { q } })
-        console.log('search response', response)
         const games = response.data as GamesResponse
 
         // Process each game in the search results
@@ -68,10 +64,7 @@ export const getGameById = async (
 
 // Helper function to process each game (expand as needed)
 const processGame = (game: CasinoGame): CasinoGame => {
-    // Example processing: Add a processed timestamp or manipulate data
-    console.log(`Processing game: ${game.name}`)
-
-    // Here, you can perform any other operations on each game (e.g., formatting, validation)
+    // Perform any other operations on each game (e.g., formatting, validation)
 
     return game // Return the processed game object
 }
