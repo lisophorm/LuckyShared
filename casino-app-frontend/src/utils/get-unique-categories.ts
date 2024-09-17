@@ -10,11 +10,10 @@ export const getUniqueCategories = (
     gamesToShow.forEach((game) => {
         game.cats.forEach((cat) => {
             if (!categoryMap[cat.id]) {
-                categoryMap[cat.id] = cat // Use category ID as key to ensure uniqueness
+                categoryMap[cat.id] = cat
             }
         })
     })
 
-    // Return an array of unique categories
     return Object.values(categoryMap)
 }

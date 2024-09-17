@@ -62,7 +62,7 @@ const GameList: React.FC = () => {
 
     const gamesToShow = searchResults.length ? searchResults : gamesList
 
-    // Updated logic to grey out non-matching games
+    // logic to grey out non-matching games
     const isGreyedOut = (game: CasinoGame) => {
         if (!selectedCategory || selectedCategory === 'all') {
             return false // If no category is selected or 'all' is selected, nothing is greyed out
@@ -130,8 +130,7 @@ const GameList: React.FC = () => {
                     searchString && searchString !== ''
                         ? filteredGames.length / settings.RECORDS_PAGE
                         : total / settings.RECORDS_PAGE
-                } // Adjust based on your actual data
-                // onPageChange={handlePageChange}
+                }
             />
         </div>
     )

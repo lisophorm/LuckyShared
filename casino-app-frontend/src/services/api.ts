@@ -66,5 +66,5 @@ export const getGameById = async (
 const processGame = (game: CasinoGame): CasinoGame => {
     // Perform any other operations on each game (e.g., formatting, validation)
 
-    return game // Return the processed game object
+    return game
 }

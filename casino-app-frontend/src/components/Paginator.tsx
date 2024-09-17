@@ -12,7 +12,6 @@ const Paginator: React.FC<PaginatorProps> = ({
     totalPages,
     basePath,
 }) => {
-    // Create an array of page numbers for rendering pagination links
     const pageNumbers = Array.from(
         { length: totalPages },
         (_, index) => index + 1

@@ -7,13 +7,10 @@ const AppRoutes: React.FC = () => {
     return (
         <BrowserRouter>
             <Routes>
-                {/* Lobby Page: Lists all games */}
                 <Route path="/" element={<Lobby />} />
                 <Route path="/games" element={<Lobby />} />
                 <Route path="/games/page/:page" element={<Lobby />} />
                 <Route path="/game/:id" element={<GameDetail />} />
-
-                {/* Search Results Page: Displays games based on search query */}
             </Routes>
         </BrowserRouter>
     )
