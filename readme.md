@@ -1,5 +1,4 @@
 BACK-END DEV
-
 cd .\casino-app-backend\
 npm install
 npm run build
@@ -14,3 +13,13 @@ npm run watch
 
 launch from NodeJS http://localhost:3000/
 
+PRODUCTION
+
+cd .\casino-app-frontend\
+npm install
+npm run build
+cd ..
+cd .\casino-app-backend\
+npm install
+npm run build
+npm run start
