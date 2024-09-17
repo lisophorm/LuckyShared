@@ -2,6 +2,7 @@ BACK-END DEV
 
 cd .\casino-app-backend\
 npm install
+npm run build
 npm run dev
 
 FRONT-END DEV
